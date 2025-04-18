@@ -1,0 +1,11 @@
+[tool.poetry]
+package-mode = false
+
+[project]
+name = "paper-edge-detection"
+requires-python = ">=3.12"
+
+dependencies = [
+  "roboflow==1.1.61"
+]
+
