@@ -4,3 +4,8 @@ __pycache__
 /datasets/unochapeco_paper-s9top/
 /datasets/greg-sun_a4-detection/
 /datasets/tmayolov8_four-corners-detection/
+/datasets/merged/
+/weights/
+/runs/train/
+/datasets/merged_segmentation/
+/.env

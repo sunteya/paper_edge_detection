@@ -1,4 +1,5 @@
 import argparse
+from dotenv import load_dotenv
 from roboflow_utils import download_roboflow_dataset
 
 def main():
@@ -6,7 +7,8 @@ def main():
     parser.add_argument('--overwrite', type=bool, help='Overwrite existing dataset')
     args = parser.parse_args()
 
-    download_roboflow_dataset("greg-sun", "a4-detection", "1", args.overwrite)
+    load_dotenv()
+    download_roboflow_dataset("unochapeco", "paper-s9top", "1", args.overwrite)
 
 if __name__ == "__main__":
     main()

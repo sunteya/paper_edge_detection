@@ -1,9 +1,14 @@
 import os
 from roboflow import Roboflow
 
-def download_roboflow_dataset(workspace_name: str, project_name: str, version_number: str = "1", overwrite: bool = False) -> str:
+def download_roboflow_dataset(
+    workspace_name: str,
+    project_name: str,
+    version_number: str = "1",
+    overwrite: bool = False,
+) -> str:
     """
-    Download a dataset from Roboflow.
+    Download a COCO format dataset from Roboflow.
     
     Args:
         workspace_name: Name of the Roboflow workspace
@@ -15,7 +20,10 @@ def download_roboflow_dataset(workspace_name: str, project_name: str, version_nu
         str: Path to the downloaded dataset
     """
     try:
-        api_key = "3KKkPOIsCcLZX3PhX7xo"
+        api_key = os.getenv("ROBOFLOW_API_KEY")
+        if not api_key:
+            raise ValueError("ROBOFLOW_API_KEY not found in environment variables")
+            
         base_dir = os.path.dirname(os.path.abspath(__file__))
 
         print(f"URL: https://universe.roboflow.com/{workspace_name}/{project_name}")
@@ -24,10 +32,8 @@ def download_roboflow_dataset(workspace_name: str, project_name: str, version_nu
         project = rf.workspace(workspace_name).project(project_name)
         output_dir = os.path.join(base_dir, f"{workspace_name}_{project_name}")
 
-        dataset = project.version(version_number).download("yolov11", output_dir, overwrite=overwrite)
+        dataset = project.version(version_number).download("coco", output_dir, overwrite=overwrite)
         print(f"Dataset downloaded successfully to: {dataset.location}")
-        print(f"Number of images: {len(os.listdir(os.path.join(dataset.location, 'train/images')))}")
-        
         return dataset.location
     except Exception as e:
         print(f"Error downloading dataset: {str(e)}")
